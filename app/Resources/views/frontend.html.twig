@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>## TITULO DE LA PÁGINA ## | Cupon</title>
+    <title>{% block title %}{% endblock %} | Cupon</title>
   </head>
-  <body id="## ID DE LA PÁGINA ##"><div id="contenedor">
+  <body id="{% block id '' %}"><div id="contenedor">
     <header>
 
       <h1><a href="{{ path('portada') }}">CUPON</a></h1>
@@ -16,10 +16,10 @@
         </ul> </nav>
       </header>
       <article>
-      ## CONTENIDO PRINCIPAL DE LA PÁGINA ##
+        {% block article %}{% endblock %}
       </article>
       <aside>
-        ## CONTENIDO SECUNDARIO DE LA PÁGINA ##
+        {% block aside %}{% endblock %}
       </aside>
       <footer>
         &copy; {{ 'now' | date('Y') }} - Cupon
