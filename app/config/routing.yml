@@ -6,8 +6,8 @@
 #     resource: "@TiendaBundle/Resources/config/routing.yml"
 #     prefix:   /
 
-# ciudad:
-#     resource: "@CiudadBundle/Resources/config/routing.yml"
+ciudad:
+  resource: "@CiudadBundle/Resources/config/routing.yml"
 #     prefix:   /
 
 # oferta:
@@ -31,3 +31,4 @@ _portada:
 portada:
   pattern:  /{ciudad}
   defaults: { _controller: OfertaBundle:Default:portada, ciudad: null  }
+
