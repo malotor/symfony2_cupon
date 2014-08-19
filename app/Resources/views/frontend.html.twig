@@ -1,12 +1,7 @@
 {# app/Resources/views/frontend.html.twig #}
 {% extends '::base.html.twig' %}
 
-
-{% set ciudadSeleccionada = app.request.attributes.has('ciudad')
-      ? app.request.attributes.get('ciudad')
-      : ciudad_por_defecto
-%}
-
+{% set ciudadSeleccionada = app.request.attributes.get('ciudad', ciudad_por_defecto) %}
 
 {% block stylesheets %}
 
@@ -29,7 +24,7 @@
               <li><a href="{{ path('portada') }}">Oferta del día</a></li>
               <li><a href="#">Ofertas recientes</a></li>
               <li><a href="#">Mis ofertas</a></li>
-              <li>{% render "CiudadBundle:Default:listaCiudades" with { 'ciudad': ciudadSeleccionada } %}</li>
+              <li>{% render(controller("CiudadBundle:Default:listaCiudades" , { 'ciudad' : ciudadSeleccionada })) %}</li>
 
           </ul> 
       </nav>
