@@ -12,7 +12,7 @@
     </div>
 </section>
 <section class="galeria">
-    <img alt="..." src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}">
+    <img alt="..." src="{{ asset(directorio_imagenes ~ oferta.rutaFoto) }}">
     <p class="precio">{{ oferta.precio }} &euro; <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
     <p><strong>Condiciones:</strong> {{ oferta.condiciones }}</p>
 </section>
@@ -20,7 +20,7 @@
 <section class="direccion">
 <h2>Disfruta de la oferta en</h2>
 <p>
-    <a href="#">{{ oferta.tienda.nombre }}</a>
+    <a href="{{ path('tienda_portada', { 'ciudad': oferta.ciudad.slug, 'tienda' : oferta.tienda.slug }) }}">{{ oferta.tienda.nombre }}</a>
     {{ oferta.tienda.direccion }}
 
 </p>

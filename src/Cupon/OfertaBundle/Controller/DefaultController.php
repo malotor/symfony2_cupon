@@ -4,8 +4,8 @@ namespace Cupon\OfertaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -65,6 +65,10 @@ class DefaultController extends Controller
     $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad, $slug);
 
     $relacionadas = $em->getRepository('OfertaBundle:Oferta')->findRelacionadas($ciudad);
+
+    if (!$oferta) {
+      throw $this->createNotFoundException('No existe la oferta');
+    }
 
     return $this->render('OfertaBundle:Default:detalle.html.twig', array(
       'oferta' => $oferta,

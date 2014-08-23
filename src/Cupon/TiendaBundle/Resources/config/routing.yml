@@ -1,3 +1,7 @@
 tienda_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: TiendaBundle:Default:index }
+
+tienda_portada:
+    pattern:  /{ciudad}/tiendas/{tienda}
+    defaults: { _controller: TiendaBundle:Default:portada }

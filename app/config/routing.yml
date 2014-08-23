@@ -2,8 +2,8 @@
 #     resource: "@UsuarioBundle/Resources/config/routing.yml"
 #     prefix:   /
 
-# tienda:
-#     resource: "@TiendaBundle/Resources/config/routing.yml"
+tienda:
+  resource: "@TiendaBundle/Resources/config/routing.yml"
 #     prefix:   /
 
 ciudad:

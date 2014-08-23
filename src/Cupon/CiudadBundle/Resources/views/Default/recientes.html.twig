@@ -22,6 +22,8 @@
               {% for ciudad in cercanas %}
                   <li><a href="{{ path('ciudad_recientes', { 'ciudad': ciudad.slug }) }}">{{ ciudad.nombre }}</a>
                   </li>
+              {% else %}
+                  <p>Esta ciudad todavía no ha publicado ninguna oferta</p>
               {% endfor %}
           </ul>
       </section>
