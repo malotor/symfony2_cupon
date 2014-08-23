@@ -3,8 +3,11 @@
 namespace Cupon\UsuarioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-/** @ORM\Entity */
+/**
+ * Cupon\UsuarioBundle\Entity\Usuario
+ *
+ * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
+ */
 class Usuario {
 	/**
    * @ORM\Id
