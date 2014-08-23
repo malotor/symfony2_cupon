@@ -63,4 +63,21 @@ class OfertaRepository extends EntityRepository
     $consulta->setParameter('fecha', new \DateTime('today'));
     return $consulta->getResult();
   }
+
+  public function findRecientes($ciudad_id)
+  {
+    $em = $this->getEntityManager();
+    $consulta = $em->createQuery('
+              SELECT o, t
+                FROM OfertaBundle:Oferta o
+                JOIN o.tienda t
+               WHERE o.revisada = true
+                 AND o.fecha_publicacion < :fecha
+                 AND o.ciudad = :id
+            ORDER BY o.fecha_publicacion DESC');
+    $consulta->setMaxResults(5);
+    $consulta->setParameter('id', $ciudad_id);
+    $consulta->setParameter('fecha', new \DateTime('today'));
+    return $consulta->getResult();
+  }
 }

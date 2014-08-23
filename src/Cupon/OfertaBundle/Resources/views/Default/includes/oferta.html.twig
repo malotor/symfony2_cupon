@@ -12,7 +12,7 @@
     </div>
 </section>
 <section class="galeria">
-    <img alt="..." src="{{ asset('uploads/images/' ~ oferta.foto) }}">
+    <img alt="..." src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}">
     <p class="precio">{{ oferta.precio }} &euro; <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
     <p><strong>Condiciones:</strong> {{ oferta.condiciones }}</p>
 </section>
