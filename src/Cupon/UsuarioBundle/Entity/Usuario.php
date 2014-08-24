@@ -3,12 +3,15 @@
 namespace Cupon\UsuarioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Cupon\UsuarioBundle\Entity\Usuario
  *
  * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
  */
-class Usuario {
+class Usuario implements UserInterface {
 	/**
    * @ORM\Id
    * @ORM\Column(type="integer")
@@ -341,4 +344,16 @@ class Usuario {
     {
         return $this->direccion;
     }
+
+  function eraseCredentials()
+  {
+  }
+  function getRoles()
+  {
+    return array('ROLE_USUARIO');
+  }
+  function getUsername()
+  {
+    return $this->getEmail();
+  }
 }
