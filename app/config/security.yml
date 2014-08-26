@@ -3,13 +3,20 @@ security:
     frontend:
       pattern:     ^/*
       anonymous:   ~
-      form_login:  ~
+      form_login:
+        login_path: usuario_login
+        check_path: usuario_login_check
+        default_target_path: /usuario/compras
+        always_use_default_target_path:  true
+      remember_me:
+        key: cupon1234
+        lifetime: 3600
   access_control:
     - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/usuario/*, roles: ROLE_USUARIO }
   providers:
     usuarios:
-        entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+      entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
   encoders:
-    Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
+    Cupon\UsuarioBundle\Entity\Usuario: plaintext

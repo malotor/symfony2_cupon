@@ -33,6 +33,10 @@
       {% block article %}{% endblock %}
   </article>
   <aside>
-      {% block aside %}{% endblock %}
+      {% block aside %}
+          <section id="login">
+              {% include 'UsuarioBundle:Default:cajaLogin.html.twig' %}
+          </section>
+      {% endblock %}
   </aside>
 {% endblock %}
