@@ -11,6 +11,10 @@ security:
       remember_me:
         key: cupon1234
         lifetime: 3600
+      logout:
+        path: usuario_logout
+        target: /sitio/vuelve-pronto
+      switch_user: { role: ROLE_ADMIN }
   access_control:
     - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -19,4 +23,4 @@ security:
     usuarios:
       entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
   encoders:
-    Cupon\UsuarioBundle\Entity\Usuario: plaintext
+    Cupon\UsuarioBundle\Entity\Usuario: { algorithm:  sha512 , iterations: 10 }
