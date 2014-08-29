@@ -9,3 +9,6 @@ usuario_login_check:
   pattern:   /login_check
 usuario_logout:
   pattern:   /logout
+usuario_registro:
+  pattern:  /registro
+  defaults: { _controller: UsuarioBundle:Default:registro }
