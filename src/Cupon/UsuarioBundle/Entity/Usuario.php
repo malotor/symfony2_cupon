@@ -5,11 +5,16 @@ namespace Cupon\UsuarioBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Cupon\UsuarioBundle\Entity\Usuario
  *
  * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
+ * @DoctrineAssert\UniqueEntity("email")
+ * @Assert\Callback(methods={"esDniValido"})
  */
 class Usuario implements UserInterface {
 	/**
@@ -19,7 +24,10 @@ class Usuario implements UserInterface {
    */
   protected $id;
 
-	/** @ORM\Column(type="string", length=255) */
+	/**
+   * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank(message = "Por favor, escribe tu nombre")
+   */
 	protected $nombre;
 
 	/** @ORM\Column(type="string", length=255) */
@@ -34,7 +42,13 @@ class Usuario implements UserInterface {
 	/** @ORM\Column(type="string", length=255) */
 	protected $salt;
 
-	/**	@ORM\Column(type="text") */
+	/**
+   * @ORM\Column(type="text")
+   *  * @Assert\Length(
+   *      min = 5,
+   *      minMessage = "La dirección debería tener {{ min }} caracteres o más para considerarse válida"
+   * )
+   */
 	protected $direccion;
 
 	/**	@ORM\Column(type="boolean") */
@@ -272,7 +286,7 @@ class Usuario implements UserInterface {
     /**
      * Get dni
      *
-     * @return \DateTime 
+     * @return string
      */
     public function getDni()
     {
@@ -355,5 +369,10 @@ class Usuario implements UserInterface {
   function getUsername()
   {
     return $this->getEmail();
+  }
+
+  public function esDniValido(ExecutionContext $context)
+  {
+    // ...
   }
 }

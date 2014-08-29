@@ -82,7 +82,7 @@ class DefaultController extends Controller
         );
         $usuario->setPassword($passwordCodificado);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($usuario);
         $em->flush();
 
@@ -108,5 +108,55 @@ class DefaultController extends Controller
     }
 
     return $this->render('UsuarioBundle:Default:registro.html.twig', array('formulario' => $formulario->createView()));
+  }
+
+  function perfilAction()
+  {
+    $peticion = $this->getRequest();
+
+    $usuario = $this->get('security.context')->getToken()->getUser();
+
+    $formulario = $this->createForm(new UsuarioType(), $usuario);
+
+    if ($peticion->getMethod() == 'POST') {
+      $formulario->bind($peticion);
+      if ($formulario->isValid()) {
+        // actualizar el perfil del usuario
+
+        $passwordOriginal = $formulario->getData()->getPassword();
+
+        $formulario->bind($peticion);
+        if ($formulario->isValid()) {
+
+          if (null == $usuario->getPassword()) {
+            $usuario->setPassword($passwordOriginal);
+          }
+          else {
+              $encoder = $this->get('security.encoder_factory')
+                ->getEncoder($usuario);
+              $passwordCodificado = $encoder->encodePassword(
+                $usuario->getPassword(),
+                $usuario->getSalt()
+              );
+            $usuario->setPassword($passwordCodificado);
+            }
+
+
+
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($usuario);
+          $em->flush();
+          $this->get('session')->setFlash('info',
+            'Los datos de tu perfil se han actualizado correctamente'
+          );
+          return $this->redirect($this->generateUrl('usuario_perfil'));
+        }
+      }
+    }
+
+    return $this->render('UsuarioBundle:Default:perfil.html.twig', array(
+      'usuario' => $usuario,
+      'formulario' => $formulario->createView()
+    ));
   }
 }
